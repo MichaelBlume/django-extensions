@@ -214,7 +214,7 @@ class SQLDiff(object):
         return field_db_type
 
     def strip_parameters(self, field_type):
-        if field_type:
+        if field_type and field_type != 'double precision':
             return field_type.split(" ")[0].split("(")[0]
         return field_type
 
@@ -480,7 +480,6 @@ class SqliteSQLDiff(SQLDiff):
 
 class PostgresqlSQLDiff(SQLDiff):
     DATA_TYPES_REVERSE_OVERRIDE = {
-        20: 'IntegerField',
         1042: 'CharField',
         # postgis types (TODO: support is very incomplete)
         17506: 'django.contrib.gis.db.models.fields.PointField',
